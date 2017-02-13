@@ -69,6 +69,10 @@ topology {{ openvpn_topology }}
 # page for more info.
 server {{ openvpn_server }}
 {% endif %}
+{% if openvpn_server_ipv6 and not openvpn_bridge %}
+server-ipv6 {{ openvpn_server_ipv6 }}
+{% endif %}
+
 {% if openvpn_bridge %}
 # Configure server mode for ethernet bridging.
 # You must first use your OS's bridging capability

@@ -15,16 +15,19 @@ openvpn_port: 1194
 openvpn_proto: udp
 openvpn_dev: tun
 openvpn_server: 10.8.0.0 255.255.255.0              # Set empty for skip
+openvpn_server_ipv6: {}                             # Set to enable IPv6 Dual Stack
+# you can use the ipv6 lookup utility to generate a random privat subnet
+#openvpn_server_ipv6: "{{ lookup('random_ipv6', inventory_dir+'/storage/'+ansible_hostname+'/openvpn_ipv6_subnet') }}"
 openvpn_bridge: {}
 openvpn_max_clients: 100
 openvpn_log: /var/log/openvpn.log                   # Log's directory
 openvpn_keepalive: "10 120"
 openvpn_ifconfig_pool_persist: ipp.txt
 openvpn_comp_lzo: yes                               # Enable compression
-openvpn_cipher: BF-CBC                              # Encryption algorithm
+openvpn_cipher: AES-256-CBC                         # Encryption algorithm
 openvpn_status: openvpn-status.log
 openvpn_verb: 3
-openvpn_tls_auth : False                            # Enable perfect forward secracyxy
+openvpn_tls_auth : true                             # Enable perfect forward secrecy (PFS)
 openvpn_tls_key  : "ta.key"
 openvpn_user: nobody
 openvpn_group: nogroup
@@ -50,7 +53,7 @@ openvpn_clients: [client]                         # Make clients certificate
 openvpn_clients_revoke: []                        # Revoke clients certificates
 
 # Use PAM authentication
-openvpn_use_pam: yes
+openvpn_use_pam: no
 openvpn_use_pam_users: []                         # If empty use system users
                                                   # otherwise use users from the option
                                                   # openvpn_use_pam_users:

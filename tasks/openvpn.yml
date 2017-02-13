@@ -20,5 +20,14 @@
 
 - include: setup-bridge.yml
 
+- name: set file owner
+  file:
+    path: "{{ openvpn_etcdir }}"
+    owner: "{{ openvpn_user }}"
+    group: "{{ openvpn_group }}"
+    recurse: yes
+
 - name: Ensure OpenVPN is started
   service: name={{openvpn_service}} state=started enabled=yes
+  when: not openvpn_only_keys
+
